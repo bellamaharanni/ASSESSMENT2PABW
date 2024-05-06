@@ -7,7 +7,7 @@ if (mysqli_connect_errno()) {
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
-    $query = "DELETE FROM reviews WHERE id = ?";
+    $query = "DELETE FROM review WHERE id = ?";
     $stmt = mysqli_prepare($koneksi, $query);
     mysqli_stmt_bind_param($stmt, 'i', $id);
     mysqli_stmt_execute($stmt);

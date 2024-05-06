@@ -1,6 +1,11 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ecoscore";
+
 // Koneksi ke database
-$conn = new mysqli("localhost", "username", "password", "database");
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Periksa koneksi
 if ($conn->connect_error) {
@@ -8,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Query untuk mengambil data dari tabel reviews
-$sql = "SELECT * FROM reviews";
+$sql = "SELECT * FROM review";
 $result = $conn->query($sql);
 
 // Membuat array untuk menyimpan hasil query
