@@ -4,16 +4,16 @@ $username = "root";
 $password = "";
 $dbname = "ecoscore";
 
-// Koneksi ke database
+// Membuat koneksi
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Periksa koneksi
+// Memeriksa koneksi
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Query untuk mengambil data dari tabel reviews
-$sql = "SELECT * FROM review";
+// Query untuk mengambil data review
+$sql = "SELECT id, judul, isi FROM review";
 $result = $conn->query($sql);
 
 // Membuat array untuk menyimpan hasil query
@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Mengubah array menjadi format JSON
+// Mengubah array menjadi format JSON dan mencetaknya
 echo json_encode($reviews);
 
 // Menutup koneksi

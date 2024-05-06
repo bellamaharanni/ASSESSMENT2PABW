@@ -14,6 +14,7 @@
                 <th>ID</th>
                 <th>Judul</th>
                 <th>Isi</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -21,6 +22,24 @@
 
     <script>
         $(document).ready(function(){
+            // Fungsi untuk menghapus review
+            function deleteReview(id) {
+                $.ajax({
+                    url: 'delete_review.php',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function(response) {
+                        alert('Review berhasil dihapus.');
+                        // Refresh halaman setelah menghapus review
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Gagal menghapus review.');
+                    }
+                });
+            }
+
+            // Memuat data review dari server
             $.ajax({
                 url: 'get_reviews.php',
                 dataType: 'json',
@@ -30,6 +49,7 @@
                                   '<td>' + item.id + '</td>' +
                                   '<td>' + item.judul + '</td>' +
                                   '<td>' + item.isi + '</td>' +
+                                  '<td><button onclick="deleteReview(' + item.id + ')">Hapus</button></td>' +
                                   '</tr>';
                         $('#review-table tbody').append(row);
                     });

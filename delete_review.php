@@ -1,18 +1,28 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", "", "ecoscore");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "ecoscore";
 
-if (mysqli_connect_errno()) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
+// Membuat koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
 
+// Memeriksa apakah parameter id telah diterima dari GET
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
+    // Query untuk menghapus review berdasarkan ID
     $query = "DELETE FROM review WHERE id = ?";
-    $stmt = mysqli_prepare($koneksi, $query);
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->close();
 }
 
-mysqli_close($koneksi);
+// Menutup koneksi
+$conn->close();
 ?>
